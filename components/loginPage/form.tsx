@@ -24,7 +24,7 @@ export default function Login() {
             const email = formData.get("email")?.toString() ?? ""
             const pass = formData.get("password")?.toString() ?? "" //fetchs from name and converts to string from formfiledata
             startTransition(async () => {
-                var res = await fetch("http://127.0.0.1:3000/api/auth/login", {
+                var res = await fetch("/api/auth/login", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({ email, pass })

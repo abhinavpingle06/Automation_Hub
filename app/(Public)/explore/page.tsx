@@ -10,7 +10,7 @@ function ExplorePage() {
     useEffect(() => {
         async function fetchProjects() {
             try {
-                const res = await fetch("http://127.0.0.1:3000/api/explore", {
+                const res = await fetch("/api/explore", {
                     method: "POST",
                     body: filter
                 });
