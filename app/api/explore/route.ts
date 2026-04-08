@@ -1,7 +1,7 @@
 import { pool } from "@/db/connection";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function POST(req: Response) {
+export async function POST(req: NextRequest) {
 
     const filterBy = await req.text()
     //All Filter query
