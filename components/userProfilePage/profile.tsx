@@ -14,7 +14,7 @@ export default function Profile() {
         const fetchUserData = async () => {
             try {
                 // Replace this with your actual API endpoint
-                const response = await fetch(`${process.env.PUBLIC_URL}/api/userprojects`, {
+                const response = await fetch(`/api/userprojects`, {
                     credentials: "include"
                 });
                 const userInfo = await response.json();
