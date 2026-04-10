@@ -21,7 +21,7 @@ const overviewData = [
 
 
 
-const userProjects = await fetch("http://127.0.0.1:3000/api/usertopprojects").then((res) => (res.json()))
+const userProjects = await fetch("/api/usertopprojects").then((res) => (res.json()))
 
 export default function Dashboard() {
     return (
