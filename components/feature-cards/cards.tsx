@@ -16,7 +16,7 @@ import Fadein from "../ui/fadein"
 
 
 export async function ItemHeaderDemo() {
-    const imgObj = await fetch('/api/test',{ next:{revalidate:0}}).then((res)=>res.json())
+    const imgObj = await fetch(`${process.env.PUBLIC_URL}/api/test`,{ next:{revalidate:0}}).then((res)=>res.json())
     return (
         <div className="flex mx-auto flex-col gap-6 pt-2 pb-2 ">
             <Fadein>
