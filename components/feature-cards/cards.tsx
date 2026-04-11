@@ -20,7 +20,7 @@ export async function ItemHeaderDemo() {
     return (
         <div className="flex mx-auto flex-col gap-6 pt-2 pb-2 ">
             <Fadein>
-            <ItemGroup className="grid grid-cols-1 lg:grid-cols-2 xlx:grid-cols-3 place-content-center px-25 sm:gap-10 gap-5 ">
+            <ItemGroup className="grid grid-cols-1 lg:grid-cols-2 xlx:grid-cols-3 place-content-center px-2 lg:px-25 sm:gap-10 gap-5 ">
                 {imgObj.map((obj:any,index:any) => (
                     <Item key={obj.title} variant="default" className="hover:scale-105 hover:bg-white/10 transition duration-300 ease-in-out w-auto h-auto rounded-none" >
                         <ItemHeader>
