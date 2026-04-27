@@ -10,17 +10,6 @@ A simplified way to find & share automation ideas. Unlike other webpages which p
 * Database: NEONDB (SQL)
 * Other Tools: Vercel
 
-```## Project Structure
-
-project-root/
-│── src/
-│── config/
-│── scripts/
-│── tests/
-│── docs/
-│── README.md
-```
-
 ## Usage
 
 1.Register Yourself
