@@ -18,5 +18,5 @@ A simplified way to find & share automation ideas. Unlike other webpages which p
 
 ## Deployment
 
-Want to have a look of project ?
-https://automation-nth1jkt0w-abhis-projects-2707c71b.vercel.app/
+Want to have a look of project?
+[https://automation-nth1jkt0w-abhis-projects-2707c71b.vercel.app/](https://automation-hub-tawny.vercel.app/)
