@@ -37,7 +37,7 @@ export async function POST(req: NextRequest) {
         //Adding in DB
         const token = req.cookies.get("iBuildThis")?.value;
         const userinfo = await VerifyToken(token)
-        await AddProjectInDB({ title: title, oneline: oneLiner, desc: description, screenshot: [result.secure_url], techStack: ["n8n"],username:userinfo.email, code: code })
+        await AddProjectInDB({ title: title, oneline: oneLiner, desc: description, screenshot: [result.secure_url], category: "n8n",username:userinfo.email, code: code })
         return NextResponse.json({"status":true})
     }
     catch(err){

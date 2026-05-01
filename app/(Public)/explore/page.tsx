@@ -1,11 +1,17 @@
 'use client'
 import { useEffect, useState } from "react";
-import { Search, Eye, Heart, TrendingUp, Sparkles } from "lucide-react";
+import { Search, Eye, Heart, TrendingUp, Sparkles, SearchCheck } from "lucide-react";
+import { NextRequest } from "next/server";
+import { Button } from "@/components/ui/button";
+import Zoom from 'react-medium-image-zoom'
+import 'react-medium-image-zoom/dist/styles.css'
 
 function ExplorePage() {
     const [projects, setProjects] = useState([]);
     const [filter, setFilter] = useState("All");
     const [searchQuery, setSearchQuery] = useState("");
+    const [token,setToken] = useState(null)
+    const [isUser,setIsUser] = useState<boolean>(true)
 
     useEffect(() => {
         async function fetchProjects() {
@@ -17,6 +23,8 @@ function ExplorePage() {
 
                 const data = await res.json();
                 setProjects(data);
+                const {token} = await fetch("/api/auth/token").then((res)=>res.json())
+                setToken(token)
             } catch (error) {
                 console.error("Error fetching projects:", error);
             }
@@ -29,6 +37,19 @@ function ExplorePage() {
         setFilter(newFilter);
     };
 
+    const handelBack = () => { token === null ? window.location.href = "/" : window.location.href = "/profile" }
+
+    const handelLike = () => { token === null ? notAUser() : isAUser()}
+
+    const notAUser = async () => {
+        setIsUser(false)
+        setTimeout(()=> {setIsUser(true)}, 3000 )
+    }
+
+    const isAUser = async () => {
+        
+    }
+
     const filteredProjects = projects.filter((project: any) => {
         if (!searchQuery) return true;
         const query = searchQuery.toLowerCase();
@@ -40,23 +61,46 @@ function ExplorePage() {
     });
 
     return (
-        <main className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 px-4 sm:px-6 lg:px-10 py-8">
+        <main className="min-h-screen bg-black relative overflow-x-hidden px-4 sm:px-6 lg:px-10 py-8">
+            <div className="absolute inset-0 overflow-hidden pointer-events-none">
+                <div className="absolute top-20 left-10 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl"></div>
+                <div className="absolute top-40 right-20 w-80 h-80 bg-indigo-500/10 rounded-full blur-3xl"></div>
+                <div className="absolute bottom-20 left-1/3 w-96 h-96 bg-blue-600/10 rounded-full blur-3xl"></div>
+                <div className="absolute top-1/2 right-10 w-64 h-64 bg-cyan-500/10 rounded-full blur-3xl"></div>
+                <div className="absolute bottom-40 right-1/3 w-72 h-72 bg-indigo-600/10 rounded-full blur-3xl"></div>
+            </div>
             <div className="max-w-7xl mx-auto">
                 {/* Header */}
+                <div className="flex justify-end max-w-screen">
+                    <Button onClick={handelBack} className="bg-slate-800/50 text-slate-300 hover:bg-slate-700/50 hover:text-slate-200 border border-blue-700/50">Back</Button>
+                </div>
+                
+                {!isUser && (
+                    <div className="fixed top-5 right-5 z-50">
+                        <div
+                            className={`
+                                bg-red-500 text-white px-4 py-3 rounded-lg shadow-lg
+                                transition-opacity duration-500
+                                ${!isUser ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-5"}
+                                `}
+                        >
+                            ⚠️ You are not logged in
+                        </div>
+                    </div>
+                )}
+
                 <div className="text-center mb-10">
                     <div className="flex items-center justify-center gap-3 mb-4">
-                        <Sparkles className="size-10 text-blue-400" />
-                        <h1 className="text-5xl sm:text-6xl font-bold bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-500 bg-clip-text text-transparent">
+                        <h1 className="text-5xl sm:text-6xl font-bold bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-500 bg-clip-text text-transparent pb-3">
                             Explore Projects
                         </h1>
                     </div>
                     <p className="text-slate-400 text-lg">Discover amazing automations from our community</p>
                 </div>
 
-                {/* Search Bar */}
                 <div className="max-w-2xl mx-auto mb-8">
-                    <div className="relative group">
-                        <Search className="absolute left-5 top-1/2 transform -translate-y-1/2 size-5 text-slate-500 group-focus-within:text-blue-400 transition-colors" />
+                    <div className="relative group flex">
+                        {/* <SearchCheck className="absolute left-5 top-1/2 transform -translate-y-1/2 size-5 text-slate-500 group-focus-within:text-blue-400 transition-colors" /> */}
                         <input
                             type="text"
                             placeholder="Search for projects, creators, or solutions..."
@@ -69,7 +113,7 @@ function ExplorePage() {
 
                 {/* Category Pills */}
                 <div className="flex justify-center gap-3 mb-10 flex-wrap">
-                    {["All", "Web Apps", "Mobile Apps", "AI/ML", "Games", "Tools"].map((category) => (
+                    {["All", "n8n", "selenium"].map((category) => (
                         <button
                             key={category}
                             onClick={() => handleFilterChange(category)}
@@ -81,6 +125,7 @@ function ExplorePage() {
                             {category}
                         </button>
                     ))}
+                    <h1 className="text-slate-400 text-lg mt-3 tracking-widest font-bold animate-pulse ">...</h1>
                 </div>
 
                 {/* Projects List */}
@@ -93,20 +138,25 @@ function ExplorePage() {
                         filteredProjects.map((project: any) => (
                             <div
                                 key={project.id}
-                                className="group bg-slate-900/50 backdrop-blur-xl border border-slate-800/50 rounded-2xl overflow-hidden hover:border-blue-500/50 hover:shadow-2xl hover:shadow-blue-500/20 transition-all duration-300"
+                                className="group bg-slate-900/50 backdrop-blur-xl border border-slate-800/50 rounded-2xl overflow-hidden hover:border-blue-500/50 hover:shadow-lg hover:shadow-blue-500/20 transition-all duration-300"
                             >
                                 <div className="flex flex-col lg:flex-row">
                                     {/* Image */}
+                                    
                                     <div className="lg:w-[40%] bg-slate-800/50 flex items-center justify-center p-4 lg:p-6">
                                         <div className="relative w-full aspect-video rounded-xl overflow-hidden">
+                                            <Zoom>
                                             <img
                                                 src={project.screenshots_url[0]}
                                                 alt={project.title}
                                                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                                             />
-                                            <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                                            
+                                            <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-slate-900/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                                            </Zoom>
                                         </div>
                                     </div>
+                                    
 
                                     {/* Content */}
                                     <div className="flex-1 p-6 lg:p-8 flex flex-col justify-between">
@@ -152,7 +202,7 @@ function ExplorePage() {
                                                 )}
 
                                                 {/* Likes */}
-                                                <button className="flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-800/50 hover:bg-slate-700/50 border border-slate-700/50 hover:border-red-500/50 text-slate-400 hover:text-red-400 transition-all duration-300 group/like">
+                                                <button onClick={handelLike} className="flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-800/50 hover:bg-slate-700/50 border border-slate-700/50 hover:border-red-500/50 text-slate-400 hover:text-red-400 transition-all duration-300 group/like">
                                                     <Heart className="size-4 group-hover/like:scale-110 transition-transform" />
                                                     <span className="font-semibold">{project.votes}</span>
                                                 </button>

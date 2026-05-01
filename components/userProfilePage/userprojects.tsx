@@ -119,18 +119,6 @@ export default function UserProjects() {
     }
     return (
         <div className="w-full px-4 sm:px-6 lg:px-8">
-            {/* Filter
-            <div className="p-3 sm:p-4 border-b flex items-center gap-2 overflow-x-auto scrollbar-hide">
-                        <button className="px-3 py-1 bg-gray-100 text-gray-700 rounded-md text-sm hover:bg-gray-200 whitespace-nowrap">
-                          All
-                        </button>
-                        <button className="px-3 py-1 text-gray-600 rounded-md text-sm hover:bg-gray-100 whitespace-nowrap">
-                          Workflows
-                        </button>
-                        <button className="px-3 py-1 text-gray-600 rounded-md text-sm hover:bg-gray-100 whitespace-nowrap">
-                          Scripts
-                        </button>
-          </div> */}
             <div className="py-6 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6 lg:gap-6">
                 {
                     automations.length == 0 &&

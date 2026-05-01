@@ -10,7 +10,7 @@ type DecodedToken = {
 };
 
 export async function GET(req: NextRequest) {
-    const token = req.cookies.get("iBuildThis")?.value;
+    const token = req.cookies.get("iBuildThis")?.value || null;
     console.log(token)
     return NextResponse.json({ token: token })
 }

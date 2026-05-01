@@ -22,7 +22,7 @@ export default function Header(){
 
             {/* Right Section */}
             <div className="flex gap-6">
-                <Button className="text-xl hover:bg-gray-800" onClick={() => router.push("explore")}>Explore Automations </Button>
+                <Button className="text-xl bg-gray-950 hover:bg-gray-900" onClick={() => router.push("explore")}>Explore Automations </Button>
                 <Button variant="destructive" onClick={() => handelLogout()}>Logout</Button>
             </div>
 

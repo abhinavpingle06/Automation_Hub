@@ -24,8 +24,6 @@ export async function POST(req: NextRequest) {
             ` , [filterBy])
         console.log(filterBy)
         return new Response(JSON.stringify(top3.rows))
-
-
     }
     catch (err) {
         console.log(err)
