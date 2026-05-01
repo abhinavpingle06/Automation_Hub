@@ -72,9 +72,10 @@ export async function POST(req: NextRequest) {
 }
 
 export async function GET(req:NextRequest) {
-    const token = req.cookies.get("iBuildThis")?.value
+    const token = req.cookies.get("iBuildThis")?.value || null
+    if (token === null) return NextResponse.json({"ok":false});
     const data = await VerifyToken(token)
-    const email = data.email // 🔥 replace with session/auth later
+    const email = data.email 
 
     const result = await pool.query(
         `SELECT post_id FROM likes WHERE user_id = (

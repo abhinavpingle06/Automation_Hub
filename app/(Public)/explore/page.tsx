@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { Search, Eye, Heart, TrendingUp, Sparkles, SearchCheck } from "lucide-react";
 import { NextRequest } from "next/server";
 import { Button } from "@/components/ui/button";
+import { Skeleton } from "@/components/ui/skeleton";
 import Zoom from 'react-medium-image-zoom'
 import 'react-medium-image-zoom/dist/styles.css'
 
@@ -11,22 +12,25 @@ function ExplorePage() {
     const [filter, setFilter] = useState("All");
     const [searchQuery, setSearchQuery] = useState("");
     const [token,setToken] = useState(null)
-    const [isUser,setIsUser] = useState<boolean>(true)
+    const [isUser,setIsUser] = useState<boolean | null>(null)
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         async function fetchProjects() {
             try {
+                setLoading(true);
                 const res = await fetch("/api/explore", {
                     method: "POST",
                     body: filter
                 });
-
                 const data = await res.json();
                 setProjects(data);
-                const {token} = await fetch("/api/auth/token").then((res)=>res.json())
+                const { token } = await fetch("/api/auth/token").then((res) => res.json())
                 setToken(token)
             } catch (error) {
                 console.error("Error fetching projects:", error);
+            } finally {
+                setLoading(false);
             }
         }
 
@@ -39,16 +43,40 @@ function ExplorePage() {
 
     const handelBack = () => { token === null ? window.location.href = "/" : window.location.href = "/profile" }
 
-    const handelLike = () => { token === null ? notAUser() : isAUser()}
+    const handelLike = (id:number) => { token === null ? notAUser() : isAUser(id)}
 
     const notAUser = async () => {
         setIsUser(false)
-        setTimeout(()=> {setIsUser(true)}, 3000 )
+        setTimeout(()=> {setIsUser(null)}, 3000 )
     }
 
-    const isAUser = async () => {
-        
+    const isAUser = async (id:number) => {
+        setIsUser(true)
+        setTimeout(() => { setIsUser(null) }, 3000)
     }
+
+    const SkeletonCard = () => (
+        <div className="bg-slate-900/50 border border-slate-800/50 rounded-2xl overflow-hidden p-8">
+            <div className="flex flex-col lg:flex-row gap-6">
+
+                {/* Image */}
+                <Skeleton className="w-full lg:w-[40%] h-65 rounded-xl" />
+
+                {/* Content */}
+                <div className="flex-1 space-y-4">
+                    <Skeleton className="h-6 w-3/4" />
+                    <Skeleton className="h-4 w-1/2" />
+                    <Skeleton className="h-4 w-full" />
+                    <Skeleton className="h-4 w-5/6" />
+
+                    <div className="flex justify-between items-center pt-4">
+                        <Skeleton className="h-10 w-24 rounded-xl" />
+                        <Skeleton className="h-10 w-32 rounded-xl" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
 
     const filteredProjects = projects.filter((project: any) => {
         if (!searchQuery) return true;
@@ -75,16 +103,29 @@ function ExplorePage() {
                     <Button onClick={handelBack} className="bg-slate-800/50 text-slate-300 hover:bg-slate-700/50 hover:text-slate-200 border border-blue-700/50">Back</Button>
                 </div>
                 
-                {!isUser && (
+                {isUser === false && (
                     <div className="fixed top-5 right-5 z-50">
                         <div
                             className={`
-                                bg-red-500 text-white px-4 py-3 rounded-lg shadow-lg
+                                bg-red-500/60 text-white px-4 py-3 rounded-lg shadow-lg
                                 transition-opacity duration-500
-                                ${!isUser ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-5"}
+                                ${isUser === false ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-5"}
                                 `}
                         >
                             ⚠️ You are not logged in
+                        </div>
+                    </div>
+                )}
+                {isUser === true && (
+                    <div className="fixed top-5 right-5 z-50">
+                        <div
+                            className={`
+                                bg-blue-500/60 text-white px-4 py-3 rounded-lg shadow-lg
+                                transition-opacity duration-500 border border-slate-500
+                                ${isUser === true ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-5"}
+                                `}
+                        >
+                            🏗️ Like feature Planned in next push!
                         </div>
                     </div>
                 )}
@@ -130,7 +171,9 @@ function ExplorePage() {
 
                 {/* Projects List */}
                 <div className="space-y-6">
-                    {filteredProjects.length === 0 ? (
+                    {loading ? (
+                        Array.from({ length: 3 }).map((_, i) => <SkeletonCard key={i} />)
+                    ) : filteredProjects.length === 0 ? (
                         <div className="text-center py-20">
                             <p className="text-slate-500 text-xl">No projects found</p>
                         </div>
@@ -202,7 +245,7 @@ function ExplorePage() {
                                                 )}
 
                                                 {/* Likes */}
-                                                <button onClick={handelLike} className="flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-800/50 hover:bg-slate-700/50 border border-slate-700/50 hover:border-red-500/50 text-slate-400 hover:text-red-400 transition-all duration-300 group/like">
+                                                <button onClick={() => handelLike(project.id)} className="flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-800/50 hover:bg-slate-700/50 border border-slate-700/50 hover:border-red-500/50 text-slate-400 hover:text-red-400 transition-all duration-300 group/like">
                                                     <Heart className="size-4 group-hover/like:scale-110 transition-transform" />
                                                     <span className="font-semibold">{project.votes}</span>
                                                 </button>
