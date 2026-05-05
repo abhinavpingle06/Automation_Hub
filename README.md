@@ -44,7 +44,7 @@ Unlike other webpages which provides automation codes for dedicated automation t
 
 1. **Clone the repository**
 ```bash
-git clone https://github.com/your-username/automation-hub.git
+git clone https://github.com/abhinavpingle06/automation-hub.git
 cd automation-hub
 ```
 
@@ -67,12 +67,46 @@ NEXT_PUBLIC_API_URL=http://localhost:3000
 npm run dev
 ```
 
-### 🌐 Access the Application
+#### 🌐 Access the Application
 
 - Next.js App: http://localhost:3000
+- Live App: https://automation-hub-tawny.vercel.app/
 - Check out **sitemap.xml** for endpoints
 
-## Deployment
+### 👤 User Guide
 
-Want to have a look of project?
-[https://automation-nth1jkt0w-abhis-projects-2707c71b.vercel.app/](https://automation-hub-tawny.vercel.app/)
+1. **Register an account** using your email 
+2. **Log in** to access the platform  
+3. **Explore automation ideas** across different tools  
+4. **Search and filter** automations based on your needs  
+5. **Share your own automation ideas** with the community  
+6. **Manage your profile** and clear your data if needed
+
+## 🤝 Contributing
+
+Contributions are welcome! 🚀  
+
+1. Fork the repository
+2. Clone the repo in your local machine
+   ```bash
+   git clone
+   https://github.com/your-username/automation-hub.git
+   ```
+4. Create a new branch  
+   ```bash
+   git checkout -b feature/your-feature-name
+   ```
+5. Make your changes  
+6. Commit your changes  
+   ```bash
+   git commit -m "Add your message"
+   ```
+7. Push to your branch  
+   ```bash
+   git push origin feature/your-feature-name
+   ```
+8. Open a Pull Request 
+
+Please ensure your **Pull Requests (PRs)** and **Issues** follow a clean, detailed approach, adhere to good coding practices, and are properly tested.
+
+***Happy Coding 🌿***
