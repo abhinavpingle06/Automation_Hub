@@ -1,8 +1,6 @@
-# Automation Hub
+# 🔎 Automation Hub - A simplified way to find & share automation ideas 🚀
 
-## Overview
-
-A simplified way to find & share automation ideas. Unlike other webpages which provides automation codes for dedicated automation tool - We focused more on centralizing this, letting the users to share variety of automations ideas using different automation tools such as n8n, Blue Prism, Zapier, and many more...
+Unlike other webpages which provides automation codes for dedicated automation tool - We focused more on centralizing this, letting the users to share variety of automations ideas using different automation tools such as n8n, Blue Prism, Zapier, and many more...
 
 ## Tech Stack
 
