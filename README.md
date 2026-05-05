@@ -2,6 +2,26 @@
 
 Unlike other webpages which provides automation codes for dedicated automation tool - We focused more on centralizing this, letting the users to share variety of automations ideas using different automation tools such as n8n, Blue Prism, Zapier, and many more...
 
+## 🚀 Features
+
+### 🛠️ Explore Automations
+- Diversity of ideas
+- One-click to copy workflows
+- Options to share ideas on a variety of automation tools  
+
+### 🔐 Authentication System
+- JWT-based authentication  
+- Secure user registration with email verification and Authorization 
+- Profile management with ability to clear user's data  
+
+### 🔍 Advanced Search & Discovery
+- Multi-source search across different automation tools.
+- Real-time filtering by title and use-case.
+
+### ⚡ UI/UX
+- User Friendly experience
+- Beautiful skeletons for blocking requests 
+
 ## Tech Stack
 
 * Frontend/Backend: NEXT.JS
