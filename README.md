@@ -2,6 +2,8 @@
 
 Unlike other webpages which provides automation codes for dedicated automation tool - We focused more on centralizing this, letting the users to share variety of automations ideas using different automation tools such as n8n, Blue Prism, Zapier, and many more...
 
+<img width="1898" height="886" alt="image" src="https://github.com/user-attachments/assets/2bfd8c72-5d69-4a05-9714-81d69e85b6be" />
+
 We are live - https://automation-hub-tawny.vercel.app/
 
 ## 🚀 Features
