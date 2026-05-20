@@ -22,18 +22,18 @@ function HomePage() {
     const stats:statsprops[] = [
         {
             icon: RocketIcon,
-            data: "2.5K+",
+            data: "5+",
             info: "Projects Shared"
         },
         {
             icon: UserIcon ,
-            data: "8.5K+",
+            data: "100+",
             info: "Strong Community" ,
             isMid: true
         },
         {
             icon: EyeIcon,
-            data: "20K+",
+            data: "500+",
             info: "Monthly Visits"
         }
     ]

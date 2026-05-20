@@ -23,25 +23,26 @@ export async function ItemHeaderDemo() {
             <ItemGroup className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 place-content-center px-2 lg:px-25 sm:gap-10 gap-5 ">
                 {imgObj.map((obj:any,index:any) => (
                     <Item key={obj.title} variant="default" className="hover:scale-105 hover:bg-white/10 transition duration-300 ease-in-out w-auto h-auto rounded-none border-4 border-slate-600/50" >
-                        <ItemHeader>
-                            <Image
-                                src={obj.screenshots_url[0]}
-                                alt={obj.title}
-                                width={500}
-                                height={260}
-                                className="w-full lg:h-[260px] md:h-[200px] h-[200px] w-[250px] object-cover"
-                            />
+                        <ItemHeader className="p-0">
+                            <div className="relative w-full h-[220px] bg-slate-950/5 overflow-hidden">
+                                <Image
+                                    src={obj.screenshots_url[0]}
+                                    alt={obj.title}
+                                    fill
+                                    className="object-contain"
+                                />
+                            </div>
                         </ItemHeader>
                         <ItemContent >
                             <div className="flex flex-row justify-between text-center">
-                                <ItemTitle className="text-lg w-full flex font-bold">{obj.title}</ItemTitle>
-                                <ItemFooter className="flex justify-end text-lg font-semibold items-center text-center text-green-400">
+                                <ItemTitle className="basis-3.5/4 min-w-0 text-lg font-bold text-left">{obj.title}</ItemTitle>
+                                <ItemFooter className="basis-0.5/4 t-0 justify-end items-center text-lg font-semibold text-green-400">
                                     {obj.votes}
-                                    <TrendingUpIcon className="size-8 text-green-400" strokeWidth={2}/>
+                                    <TrendingUpIcon className="size-6 text-green-400" />
                                 </ItemFooter>
                             </div>
                             
-                            <ItemDescription className="pt-1 line-clamp-1 text-gray-400">{obj.soln}</ItemDescription>
+                            <ItemDescription className="pt-1 line-clamp-2 text-gray-400">{obj.soln}</ItemDescription>
                         </ItemContent>
                     </Item>
                     
